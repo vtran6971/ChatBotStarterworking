@@ -81,7 +81,15 @@ public class ChatBot3
 		else if (findKeyword(statement, "I want",0) >= 0)
 		{
 			response = transformIWantStatement(statement);
-		}	
+		}
+		else if (findKeyword(statement, "hate",0) >= 0)
+		{
+			response = transformIHateYouStatement(statement);
+		}
+		else if (findKeyword(statement, "I dislike",0) >= 0)
+		{
+			response = transformIDislikeStatement(statement);
+		}
 		else
 		{
 			response = getRandomResponse();
@@ -142,7 +150,7 @@ public class ChatBot3
 	 * @param statement the user statement, assumed to contain "I" followed by "you"
 	 * @return the transformed statement
 	 */
-	private String transformIYouStatement(String statement)
+	private String transformIHateYouStatement(String statement)
 	{
 		//  Remove the final period, if there is one
 		statement = statement.trim();
@@ -158,9 +166,22 @@ public class ChatBot3
 		int psnOfYou = findKeyword (statement, "you", psnOfI);
 		
 		String restOfStatement = statement.substring(psnOfI + 1, psnOfYou).trim();
-		return "Why do you " + restOfStatement + " me?";
+		return "Why do you hate" + restOfStatement + " me?";
 	}
-	
+
+	/** Transformer */
+	private String transformIDislikeStatement(String statement)
+	{
+		statement = statement.trim();
+		String lastChar = statement.substring(statement.length()-1);
+		if (lastChar.equals("."))
+		{
+			statement = statement.substring(0,statement.length() -1);
+		}
+		int psn = findKeyword (statement, "I dislike", 0);
+		String restofStatement = statement.substring(psn + 9).trim();
+		return "Why don't you like " + restofStatement + "?";
+	}
 
 	
 	
