@@ -4,7 +4,7 @@ import java.util.Scanner;
 /**
  * A program to carry on conversations with a human user.
  * This version:
- * @author Brooklyn Tech CS Department
+ * @author Vincent Tran
  * @version September 2018
  */
 public class ChatBot3
@@ -42,7 +42,7 @@ public class ChatBot3
 	 */	
 	public String getGreeting()
 	{
-		return "Hi, what is up?";
+		return "Hello, Arc Trooper Fives reporting for duty";
 	}
 	
 	/**
@@ -161,12 +161,11 @@ public class ChatBot3
 			statement = statement.substring(0, statement
 					.length() - 1);
 		}
+
+		int psn = findKeyword (statement, "I hate", 0);
 		
-		int psnOfI = findKeyword (statement, "I", 0);
-		int psnOfYou = findKeyword (statement, "you", psnOfI);
-		
-		String restOfStatement = statement.substring(psnOfI + 1, psnOfYou).trim();
-		return "Why do you hate" + restOfStatement + " me?";
+		String restOfStatement = statement.substring(psn + 6).trim();
+		return "Why do you hate " + restOfStatement + " me?";
 	}
 
 	/** Transformer */
@@ -181,6 +180,18 @@ public class ChatBot3
 		int psn = findKeyword (statement, "I dislike", 0);
 		String restofStatement = statement.substring(psn + 9).trim();
 		return "Why don't you like " + restofStatement + "?";
+	}
+	private String transformIdentifyStatement(String statement)
+	{
+		statement = statement.trim();
+		String lastChar = statement.substring(statement.length()-1);
+		if (lastChar.equals("."))
+		{
+			statement = statement.substring(0,statement.length() -1);
+		}
+		int psn = findKeyword (statement, "identify ", 0);
+		String restofStatement = statement.substring(psn + 10).trim();
+		return " " + restofStatement + "?";
 	}
 
 	
@@ -282,13 +293,12 @@ public class ChatBot3
 		return randomHappyResponses [r.nextInt(randomHappyResponses.length)];
 	}
 	
-	private String [] randomNeutralResponses = {"Interesting, tell me more",
-			"Hmmm.",
-			"Do you really think so?",
-			"You don't say.",
-			"It's all boolean to me.",
-			"So, would you like to go for a walk?",
-			"Could you say that again?"
+	private String [] randomNeutralResponses = {"Beats me..",
+			"Whats the purpose of all this?",
+			"I wonder whats going to happen after the war",
+			"I've lost a lot of brothers",
+			"We serve under the Jedi and the Republic",
+
 	};
 	private String [] randomAngryResponses = {"Bahumbug.", "Harumph", "The rage consumes me!"};
 	private String [] randomHappyResponses = {"H A P P Y, what's that spell?", "Today is a good day", "You make me feel like a brand new pair of shoes."};
